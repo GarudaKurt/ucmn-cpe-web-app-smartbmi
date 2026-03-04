@@ -358,11 +358,11 @@ export default function Page() {
       if (!data) return;
 
       setHealthCheck({
-        spo2: Number(data.spo2) || 99,
-        heartrate: Number(data.heartrate) || 120,
-        temperature: Number(data.temperature) || 33.3,
-        weight: Number(data.weight) || 83,
-        height: Number(data.height) || 152,
+        spo2: Number(data.spo2) || 0,
+        heartrate: Number(data.heartrate) || 0,
+        temperature: Number(data.temperature) || 0,
+        weight: Number(data.weight) || 0,
+        height: Number(data.height) || 0,
       });
 
     });
