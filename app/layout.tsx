@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Smart Mettering System",
+  title: "IoT Smart BMI",
 };
 
 export default function RootLayout({
