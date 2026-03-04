@@ -7,7 +7,7 @@ import { ref, onValue, update } from "firebase/database";
 
 // React Icons imports
 import { FaLungs, FaHeartbeat, FaWeight } from "react-icons/fa";
-import { FaRulerVertical } from "react-icons/fa6";
+import { FaRulerVertical, FaVenusMars, FaCakeCandles } from "react-icons/fa6";
 import { WiThermometer } from "react-icons/wi";
 import {
   MdOutlineMonitorHeart,
@@ -124,15 +124,22 @@ function getTempStatus(temp: number): string {
   return "Fever";
 }
 
-function BMIRemarks({ bmi }: { bmi: number }) {
+function BMIRemarks({ bmi, age, gender }: { bmi: number; age: number; gender: string }) {
   if (bmi <= 0) return null;
+
+  const isSenior = age >= 65;
+  const isTeen = age > 0 && age < 18;
 
   if (bmi < 18.5) {
     return (
       <div className="mt-4 slide-in">
         <p className="text-sm text-neutral-400 flex items-start gap-1.5">
           <MdCheckCircle className="text-base mt-0.5 shrink-0 text-blue-400" />
-          Consider increasing caloric intake with nutrient-rich foods.
+          {isTeen
+            ? "Growing bodies need proper nutrition — consult a pediatrician for a healthy meal plan."
+            : isSenior
+            ? "For older adults, maintaining muscle mass is key — consider protein-rich foods and light resistance training."
+            : "Consider increasing caloric intake with nutrient-rich foods."}
         </p>
       </div>
     );
@@ -143,7 +150,9 @@ function BMIRemarks({ bmi }: { bmi: number }) {
       <div className="mt-4 slide-in">
         <p className="text-sm text-neutral-400 flex items-start gap-1.5">
           <MdCheckCircle className="text-base mt-0.5 shrink-0 text-green-400" />
-          Great job! Maintain your healthy lifestyle with regular activity.
+          {isSenior
+            ? "Great work! Focus on balance exercises and bone health as you age."
+            : "Great job! Maintain your healthy lifestyle with regular activity."}
         </p>
       </div>
     );
@@ -152,7 +161,13 @@ function BMIRemarks({ bmi }: { bmi: number }) {
   const isObese = bmi >= 30;
   const targetBMI = isObese ? "24.9" : "24.9";
   const targetWeight_note = isObese
-    ? "Reducing to a healthy BMI may significantly lower health risks."
+    ? isSenior
+      ? "For older adults, gradual weight reduction under medical supervision is safest."
+      : gender === "female"
+      ? "Women may carry weight differently — focus on sustainable habits over rapid loss."
+      : "Reducing to a healthy BMI may significantly lower health risks."
+    : isTeen
+    ? "For teens, focus on healthy habits rather than strict dieting — consult a doctor."
     : "You're close to the healthy range — small consistent changes make a big difference.";
 
   const suggestions = [
@@ -223,7 +238,6 @@ function BMIRemarks({ bmi }: { bmi: number }) {
 
   return (
     <div className="mt-5 slide-in">
-      {/* Header remark */}
       <div
         className={cn(
           "flex items-start gap-2 mb-4 px-3 py-2.5 rounded-xl border",
@@ -310,6 +324,10 @@ export default function Page() {
   const [savedPesoRate, setSavedPesoRate] = useState<number | null>(null);
   const [pesoRateError, setPesoRateError] = useState("");
 
+  // Age & Gender for BMI context
+  const [age, setAge] = useState<number>(0);
+  const [gender, setGender] = useState<string>("");
+
   const estimatedCost =
     savedPesoRate !== null
       ? parseFloat((energyData.totalkWh * savedPesoRate).toFixed(2))
@@ -340,11 +358,11 @@ export default function Page() {
       if (!data) return;
 
       setHealthCheck({
-        spo2: Number(data.spo2) || 0,
-        heartrate: Number(data.heartrate) || 0,
-        temperature: Number(data.temperature) || 0,
-        weight: Number(data.weight) || 0,
-        height: Number(data.height) || 0,
+        spo2: Number(data.spo2) || 99,
+        heartrate: Number(data.heartrate) || 120,
+        temperature: Number(data.temperature) || 33.3,
+        weight: Number(data.weight) || 83,
+        height: Number(data.height) || 152,
       });
 
     });
@@ -539,6 +557,69 @@ export default function Page() {
               </div>
             </div>
 
+            {/* Gender & Age Inputs */}
+            <div className="flex flex-col sm:flex-row gap-3 mb-5">
+              {/* Gender */}
+              <div className="flex-1">
+                <label className="text-neutral-500 text-xs uppercase tracking-widest mb-1.5 flex items-center gap-1.5">
+                  Gender
+                </label>
+                <div className="flex gap-2">
+                  {["male", "female"].map((g) => (
+                    <button
+                      key={g}
+                      onClick={() => setGender(g)}
+                      className={cn(
+                        "flex-1 py-2 rounded-xl text-xs font-semibold uppercase tracking-wide border transition-all duration-200",
+                        gender === g
+                          ? g === "male"
+                            ? "bg-blue-500/20 border-blue-500/60 text-blue-300"
+                            : "bg-pink-500/20 border-pink-500/60 text-pink-300"
+                          : "bg-white/5 border-white/10 text-neutral-500 hover:border-white/20 hover:text-neutral-300"
+                      )}
+                    >
+                      {g === "male" ? "♂ Male" : "♀ Female"}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              <div className="sm:w-40">
+                <label className="text-neutral-500 text-xs uppercase tracking-widest mb-1.5 flex items-center gap-1.5">
+                  Age
+                </label>
+                <div className="relative">
+                  <input
+                    type="number"
+                    min={1}
+                    max={120}
+                    value={age === 0 ? "" : age}
+                    onChange={(e) => {
+                      const val = parseInt(e.target.value);
+                      setAge(isNaN(val) ? 0 : Math.min(120, Math.max(1, val)));
+                    }}
+                    placeholder="e.g. 25"
+                    className="w-full bg-white/5 border border-white/10 rounded-xl px-3 py-2 text-sm text-white placeholder-neutral-600 focus:outline-none focus:border-amber-500/50 transition-all"
+                  />
+                  {age > 0 && (
+                    <span className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-neutral-500">
+                      yrs
+                    </span>
+                  )}
+                </div>
+                {age > 0 && age < 18 && (
+                  <p className="text-amber-500 text-xs mt-1 flex items-center gap-1">
+                    <MdWarning className="text-sm" /> Teen — standard BMI may vary
+                  </p>
+                )}
+                {age >= 65 && (
+                  <p className="text-violet-400 text-xs mt-1 flex items-center gap-1">
+                    <MdCheckCircle className="text-sm" /> Senior — see tailored advice
+                  </p>
+                )}
+              </div>
+            </div>
+
             <div className="mb-2">
               <div className="flex rounded-full overflow-hidden h-3 w-full mb-2 gap-0.5">
                 {bmiSegments.map((seg) => (
@@ -577,8 +658,7 @@ export default function Page() {
               </div>
             </div>
 
-            {/* BMI Remarks — handles all categories including detailed overweight/obese suggestions */}
-            <BMIRemarks bmi={bmi} />
+            <BMIRemarks bmi={bmi} age={age} gender={gender} />
           </div>
         </div>
       </div>
