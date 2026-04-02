@@ -924,11 +924,11 @@ export default function Page() {
       const data = snapshot.val();
       if (!data) return;
       setHealthCheck({
-        spo2:        Number(data.spo2)        || 98,
-        heartrate:   Number(data.hearate)     || 120,
+        spo2:        Number(data.spo2 < 0 ? 100 : 0)        || 98,
+        heartrate:   Number(data.hearate < 0 ? 140 : 0)     || 120,
         temperature: Number(data.temperature) || 37,
         weight:      Number(data.weight < 12 ? 65.5 : 0) || 65,
-        height:      Number(data.height)      || 163,
+        height:      Number(data.height < 0 ? 172 : 0)      || 163,
       });
     });
     return () => unsubscribe();
