@@ -1,14 +1,21 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import { NextRequest, NextResponse } from "next/server";
 
-const genAI = new GoogleGenerativeAI("AIzaSyA3IqyGD722RGKyuYrsQiqkqjGFYNNIVnI");
+export const maxDuration = 60;
+
+const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY!);
 
 export async function POST(req: NextRequest) {
-  const { bmi, weight, height, age, gender, tdee, bmr, activityKey } = await req.json();
+  try {
+    const { bmi, weight, height, age, gender, tdee, bmr, activityKey } = await req.json();
 
-  const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
+    if (!process.env.GEMINI_API_KEY) {
+      return NextResponse.json({ error: "Missing API key" }, { status: 500 });
+    }
 
-  const prompt = `You are an expert fitness and nutrition AI.
+    const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
+
+    const prompt = `You are an expert fitness and nutrition AI.
 Analyze the user's health data and return a personalized TDEE-based plan.
 Respond ONLY in valid JSON — no markdown, no explanation, no backticks.
 
@@ -93,10 +100,17 @@ Return exactly this JSON shape — all 6 suggestion objects are required:
   ]
 }`;
 
-  const result = await model.generateContent(prompt);
-  const text = result.response.text();
-  const clean = text.replace(/```json|```/g, "").trim();
-  const parsed = JSON.parse(clean);
+    const result = await model.generateContent(prompt);
+    const text   = result.response.text();
+    const clean  = text.replace(/```json|```/g, "").trim();
+    const parsed = JSON.parse(clean);
 
-  return NextResponse.json(parsed);
+    return NextResponse.json(parsed);
+  } catch (err) {
+    console.error("[tdee-suggestions] error:", err);
+    return NextResponse.json(
+      { error: "Failed to generate suggestions", details: String(err) },
+      { status: 500 }
+    );
+  }
 }
