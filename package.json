@@ -9,6 +9,7 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@google/genai": "^1.48.0",
     "@google/generative-ai": "^0.24.1",
     "@tailwindcss/cli": "^4.1.18",
     "class-variance-authority": "^0.7.1",
