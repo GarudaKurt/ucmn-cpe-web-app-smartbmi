@@ -54,10 +54,8 @@ recommendedGoal must be one of: cut, maintain, bulk, recomp. Replace all "..." w
     const result = await model.generateContent(prompt);
     const raw    = result.response.text();
 
-    // ── 5. Strip any accidental markdown fences ───────────────────────────
     const clean  = raw.replace(/^```(?:json)?\s*/i, "").replace(/\s*```\s*$/i, "").trim();
 
-    // ── 6. Parse and return ───────────────────────────────────────────────
     const parsed = JSON.parse(clean);
     return NextResponse.json(parsed);
 
