@@ -4,12 +4,12 @@ import { NextRequest, NextResponse } from "next/server";
 export const maxDuration = 60;
 export const dynamic = "force-dynamic";
 
-const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY!);
+const genAI = new GoogleGenerativeAI("AIzaSyA3IqyGD722RGKyuYrsQiqkqjGFYNNIVnI");
 
 export async function POST(req: NextRequest) {
   try {
     // ── 1. Guard: API key must exist ──────────────────────────────────────
-    if (!process.env.GEMINI_API_KEY) {
+    if (!genAI) {
       console.error("[health-comment] GEMINI_API_KEY is not set");
       return NextResponse.json({ error: "Server misconfiguration: missing API key" }, { status: 500 });
     }
