@@ -4,7 +4,7 @@ import { NextRequest, NextResponse } from "next/server";
 export const maxDuration = 60;
 export const dynamic = "force-dynamic";
 
-const genAI = new GoogleGenerativeAI("AIzaSyA3IqyGD722RGKyuYrsQiqkqjGFYNNIVnI");
+const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY!);
 
 export async function POST(req: NextRequest) {
   try {
