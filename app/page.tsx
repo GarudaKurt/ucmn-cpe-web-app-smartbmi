@@ -101,6 +101,370 @@ const iconAnimationStyles = `
   .count-up        { animation: countUp     0.6s ease-out both; }
 `;
 
+// ─── All 100 meals from Diet_Plan_Final.csv ───────────────────────────────────
+const DIET_DATA = [
+  { id: 1,  name: "Tapsilog",                    portion: "1 cup Garlic Rice, 100g Beef, 1 Egg",          foodType: "breakfast", calories: 516, carbs: 26, proteins: 25, fats: 12 },
+  { id: 2,  name: "Tocilog",                     portion: "1 cup Garlic Rice, 100g Tocino, 1 Egg",        foodType: "dinner",    calories: 561, carbs: 52, proteins: 20, fats: 18 },
+  { id: 3,  name: "Longsilog",                   portion: "1 cup Garlic Rice, 2 pcs Longganisa, 1 Egg",   foodType: "breakfast", calories: 260, carbs: 49, proteins: 33, fats: 22 },
+  { id: 4,  name: "Bangsilog",                   portion: "1 cup Garlic Rice, 1 medium Bangus, 1 Egg",    foodType: "breakfast", calories: 365, carbs: 32, proteins: 40, fats: 25 },
+  { id: 5,  name: "Pandesal with Egg",           portion: "2 medium Pandesal, 1 Scrambled Egg",           foodType: "breakfast", calories: 630, carbs: 60, proteins: 35, fats: 13 },
+  { id: 6,  name: "Champorado",                  portion: "1 bowl (approx 250ml)",                        foodType: "dinner",    calories: 435, carbs: 25, proteins: 17, fats: 10 },
+  { id: 7,  name: "Lugaw with Egg",              portion: "1 bowl with 1 Hard-boiled Egg",                foodType: "lunch",     calories: 663, carbs: 36, proteins: 31, fats: 20 },
+  { id: 8,  name: "Spamsilog",                   portion: "1 cup Garlic Rice, 2 slices Spam, 1 Egg",      foodType: "breakfast", calories: 568, carbs: 32, proteins: 27, fats: 15 },
+  { id: 9,  name: "Arroz Caldo",                 portion: "1 bowl with Chicken and Egg",                  foodType: "lunch",     calories: 452, carbs: 58, proteins: 29, fats: 22 },
+  { id: 10, name: "Tortang Talong",              portion: "1 medium Eggplant with 1 Egg",                 foodType: "lunch",     calories: 429, carbs: 59, proteins: 30, fats: 25 },
+  { id: 11, name: "Chicken Adobo",               portion: "150g Chicken, 1/2 cup Sauce",                  foodType: "lunch",     calories: 303, carbs: 48, proteins: 28, fats: 20 },
+  { id: 12, name: "Pork Sinigang",               portion: "150g Pork, 1 cup Broth with Veggies",          foodType: "dinner",    calories: 650, carbs: 41, proteins: 28, fats: 8  },
+  { id: 13, name: "Beef Kare-Kare",              portion: "150g Beef, 2 tbsp Peanut Sauce",               foodType: "lunch",     calories: 668, carbs: 30, proteins: 24, fats: 12 },
+  { id: 14, name: "Pinakbet",                    portion: "1 cup Mixed Vegetables",                       foodType: "lunch",     calories: 596, carbs: 56, proteins: 16, fats: 20 },
+  { id: 15, name: "Bicol Express",               portion: "150g Pork in Coconut Milk",                    foodType: "dinner",    calories: 614, carbs: 48, proteins: 27, fats: 24 },
+  { id: 16, name: "Ginisang Monggo",             portion: "1 cup cooked Mung Beans",                      foodType: "dinner",    calories: 261, carbs: 53, proteins: 32, fats: 11 },
+  { id: 17, name: "Lechon Kawali",               portion: "100g Crispy Pork Belly",                       foodType: "dinner",    calories: 265, carbs: 20, proteins: 26, fats: 21 },
+  { id: 18, name: "Chopsuey",                    portion: "1.5 cups Stir-fried Vegetables",               foodType: "dinner",    calories: 669, carbs: 21, proteins: 33, fats: 25 },
+  { id: 19, name: "Chicken Inasal",              portion: "1 Quarter Leg (approx 200g)",                  foodType: "lunch",     calories: 451, carbs: 50, proteins: 39, fats: 19 },
+  { id: 20, name: "Pancit Canton",               portion: "1.5 cups cooked Noodles",                      foodType: "dinner",    calories: 570, carbs: 39, proteins: 36, fats: 14 },
+  { id: 21, name: "Lumpia Shanghai",             portion: "5 small pieces",                               foodType: "lunch",     calories: 413, carbs: 44, proteins: 39, fats: 17 },
+  { id: 22, name: "Tinola na Manok",             portion: "150g Chicken, 1 cup Broth",                    foodType: "dinner",    calories: 375, carbs: 25, proteins: 36, fats: 10 },
+  { id: 23, name: "Grilled Liempo",              portion: "150g Grilled Pork Belly",                      foodType: "dinner",    calories: 659, carbs: 32, proteins: 24, fats: 15 },
+  { id: 24, name: "Beef Pares",                  portion: "150g Beef Stew, 1 cup Rice",                   foodType: "dinner",    calories: 424, carbs: 49, proteins: 19, fats: 25 },
+  { id: 25, name: "Dinuguan",                    portion: "1 cup Pork Blood Stew",                        foodType: "dinner",    calories: 649, carbs: 21, proteins: 38, fats: 15 },
+  { id: 26, name: "Bangus Sisig",                portion: "150g Flaked Milkfish",                         foodType: "dinner",    calories: 626, carbs: 54, proteins: 40, fats: 22 },
+  { id: 27, name: "Grilled Tilapia",             portion: "1 whole medium fish",                          foodType: "dinner",    calories: 508, carbs: 51, proteins: 34, fats: 6  },
+  { id: 28, name: "Beef Caldereta",              portion: "150g Beef in Tomato Sauce",                    foodType: "dinner",    calories: 305, carbs: 25, proteins: 19, fats: 8  },
+  { id: 29, name: "Nilagang Baka",               portion: "150g Beef, 1 cup Broth",                       foodType: "dinner",    calories: 468, carbs: 44, proteins: 22, fats: 16 },
+  { id: 30, name: "Pork Menudo",                 portion: "150g Pork and Liver mix",                      foodType: "dinner",    calories: 450, carbs: 60, proteins: 32, fats: 22 },
+  { id: 31, name: "Fish Steak",                  portion: "150g Fish fillet (Bistek style)",               foodType: "dinner",    calories: 570, carbs: 48, proteins: 32, fats: 12 },
+  { id: 32, name: "Laing",                       portion: "1 cup Taro Leaves in Coconut Milk",            foodType: "lunch",     calories: 625, carbs: 24, proteins: 26, fats: 19 },
+  { id: 33, name: "Ginataang Kalabasa",          portion: "1 cup Squash and Beans",                       foodType: "dinner",    calories: 333, carbs: 20, proteins: 23, fats: 5  },
+  { id: 34, name: "Pork Hamonado",               portion: "150g Sweetened Pork",                          foodType: "dinner",    calories: 264, carbs: 39, proteins: 39, fats: 18 },
+  { id: 35, name: "Adobong Sitaw",               portion: "1 cup String Beans with Pork",                 foodType: "lunch",     calories: 541, carbs: 47, proteins: 23, fats: 11 },
+  { id: 36, name: "Mechado",                     portion: "150g Beef with Potato",                        foodType: "dinner",    calories: 384, carbs: 47, proteins: 15, fats: 21 },
+  { id: 37, name: "Afritada",                    portion: "150g Chicken/Pork with Tomato",                foodType: "lunch",     calories: 364, carbs: 31, proteins: 19, fats: 22 },
+  { id: 38, name: "Pork Steak",                  portion: "150g Pork Loin slices",                        foodType: "dinner",    calories: 542, carbs: 31, proteins: 18, fats: 12 },
+  { id: 39, name: "Sinigang na Hipon",           portion: "6 medium Shrimp, 1 cup Broth",                 foodType: "lunch",     calories: 682, carbs: 34, proteins: 39, fats: 25 },
+  { id: 40, name: "Inihaw na Pusit",             portion: "1 medium Grilled Squid",                       foodType: "lunch",     calories: 635, carbs: 42, proteins: 23, fats: 17 },
+  { id: 41, name: "Oatmeal",                     portion: "1 cup cooked with honey",                      foodType: "dinner",    calories: 270, carbs: 21, proteins: 29, fats: 9  },
+  { id: 42, name: "Scrambled Eggs",              portion: "3 large eggs with spinach",                    foodType: "dinner",    calories: 320, carbs: 34, proteins: 36, fats: 24 },
+  { id: 43, name: "Greek Yogurt",                portion: "170g container",                               foodType: "breakfast", calories: 353, carbs: 45, proteins: 22, fats: 11 },
+  { id: 44, name: "Avocado Toast",               portion: "1 slice sourdough, 1/2 avocado",               foodType: "breakfast", calories: 590, carbs: 53, proteins: 27, fats: 25 },
+  { id: 45, name: "Protein Smoothie",            portion: "1 scoop whey, 1 cup milk/water",               foodType: "lunch",     calories: 688, carbs: 40, proteins: 27, fats: 25 },
+  { id: 46, name: "Grilled Chicken Breast",      portion: "150g skinless",                                foodType: "breakfast", calories: 597, carbs: 56, proteins: 28, fats: 19 },
+  { id: 47, name: "Quinoa Salad",                portion: "1 cup cooked with veggies",                    foodType: "lunch",     calories: 649, carbs: 47, proteins: 25, fats: 20 },
+  { id: 48, name: "Turkey Wrap",                 portion: "1 whole wheat tortilla, 100g turkey",          foodType: "lunch",     calories: 607, carbs: 23, proteins: 31, fats: 25 },
+  { id: 49, name: "Baked Salmon",                portion: "150g fillet",                                  foodType: "lunch",     calories: 379, carbs: 29, proteins: 26, fats: 14 },
+  { id: 50, name: "Steak Salad",                 portion: "100g Sirloin, 3 cups greens",                  foodType: "lunch",     calories: 521, carbs: 47, proteins: 19, fats: 6  },
+  { id: 51, name: "Steamed Sinigang na Hipon",   portion: "6 medium Shrimp, 1 cup Broth",                 foodType: "breakfast", calories: 611, carbs: 27, proteins: 25, fats: 13 },
+  { id: 52, name: "Baked Lumpia Shanghai",       portion: "5 small pieces",                               foodType: "lunch",     calories: 664, carbs: 39, proteins: 32, fats: 17 },
+  { id: 53, name: "Homemade Lechon Kawali",      portion: "100g Crispy Pork Belly",                       foodType: "dinner",    calories: 251, carbs: 48, proteins: 21, fats: 20 },
+  { id: 54, name: "Grilled Bicol Express",       portion: "150g Pork in Coconut Milk",                    foodType: "breakfast", calories: 668, carbs: 22, proteins: 28, fats: 22 },
+  { id: 55, name: "Steamed Grilled Liempo",      portion: "150g Grilled Pork Belly",                      foodType: "lunch",     calories: 567, carbs: 39, proteins: 33, fats: 17 },
+  { id: 56, name: "Baked Mechado",               portion: "150g Beef with Potato",                        foodType: "breakfast", calories: 664, carbs: 28, proteins: 17, fats: 17 },
+  { id: 57, name: "Grilled Pork Sinigang",       portion: "150g Pork, 1 cup Broth with Veggies",          foodType: "dinner",    calories: 690, carbs: 52, proteins: 24, fats: 21 },
+  { id: 58, name: "Fresh Laing",                 portion: "1 cup Taro Leaves in Coconut Milk",            foodType: "lunch",     calories: 308, carbs: 26, proteins: 37, fats: 20 },
+  { id: 59, name: "Fresh Tocilog",               portion: "1 cup Garlic Rice, 100g Tocino, 1 Egg",        foodType: "dinner",    calories: 605, carbs: 36, proteins: 32, fats: 11 },
+  { id: 60, name: "Classic Chicken Adobo",       portion: "150g Chicken, 1/2 cup Sauce",                  foodType: "breakfast", calories: 330, carbs: 31, proteins: 27, fats: 11 },
+  { id: 61, name: "Steamed Bangus Sisig",        portion: "150g Flaked Milkfish",                         foodType: "breakfast", calories: 464, carbs: 28, proteins: 34, fats: 25 },
+  { id: 62, name: "Classic Ginisang Monggo",     portion: "1 cup cooked Mung Beans",                      foodType: "breakfast", calories: 420, carbs: 39, proteins: 26, fats: 21 },
+  { id: 63, name: "Fresh Ginisang Monggo",       portion: "1 cup cooked Mung Beans",                      foodType: "breakfast", calories: 302, carbs: 25, proteins: 16, fats: 16 },
+  { id: 64, name: "Spicy Nilagang Baka",         portion: "150g Beef, 1 cup Broth",                       foodType: "breakfast", calories: 535, carbs: 38, proteins: 37, fats: 10 },
+  { id: 65, name: "Steamed Spamsilog",           portion: "1 cup Garlic Rice, 2 slices Spam, 1 Egg",      foodType: "lunch",     calories: 366, carbs: 32, proteins: 37, fats: 24 },
+  { id: 66, name: "Classic Pork Steak",          portion: "150g Pork Loin slices",                        foodType: "lunch",     calories: 601, carbs: 27, proteins: 33, fats: 10 },
+  { id: 67, name: "Steamed Grilled Tilapia",     portion: "1 whole medium fish",                          foodType: "breakfast", calories: 330, carbs: 37, proteins: 22, fats: 25 },
+  { id: 68, name: "Grilled Pork Menudo",         portion: "150g Pork and Liver mix",                      foodType: "breakfast", calories: 596, carbs: 42, proteins: 30, fats: 23 },
+  { id: 69, name: "Roasted Bangus Sisig",        portion: "150g Flaked Milkfish",                         foodType: "lunch",     calories: 625, carbs: 41, proteins: 25, fats: 17 },
+  { id: 70, name: "Steamed Grilled Chicken Breast", portion: "150g skinless",                             foodType: "dinner",    calories: 431, carbs: 58, proteins: 26, fats: 17 },
+  { id: 71, name: "Grilled Grilled Liempo",      portion: "150g Grilled Pork Belly",                      foodType: "lunch",     calories: 619, carbs: 58, proteins: 19, fats: 19 },
+  { id: 72, name: "Grilled Greek Yogurt",        portion: "170g container",                               foodType: "dinner",    calories: 418, carbs: 39, proteins: 36, fats: 20 },
+  { id: 73, name: "Classic Pork Sinigang",       portion: "150g Pork, 1 cup Broth with Veggies",          foodType: "dinner",    calories: 275, carbs: 40, proteins: 33, fats: 21 },
+  { id: 74, name: "Steamed Bicol Express",       portion: "150g Pork in Coconut Milk",                    foodType: "lunch",     calories: 596, carbs: 27, proteins: 24, fats: 11 },
+  { id: 75, name: "Roasted Greek Yogurt",        portion: "170g container",                               foodType: "lunch",     calories: 418, carbs: 41, proteins: 38, fats: 21 },
+  { id: 76, name: "Roasted Ginisang Monggo",     portion: "1 cup cooked Mung Beans",                      foodType: "dinner",    calories: 651, carbs: 59, proteins: 26, fats: 6  },
+  { id: 77, name: "Classic Greek Yogurt",        portion: "170g container",                               foodType: "breakfast", calories: 565, carbs: 51, proteins: 25, fats: 12 },
+  { id: 78, name: "Spicy Laing",                 portion: "1 cup Taro Leaves in Coconut Milk",            foodType: "dinner",    calories: 624, carbs: 48, proteins: 35, fats: 21 },
+  { id: 79, name: "Baked Inihaw na Pusit",       portion: "1 medium Grilled Squid",                       foodType: "lunch",     calories: 327, carbs: 40, proteins: 29, fats: 25 },
+  { id: 80, name: "Spicy Beef Kare-Kare",        portion: "150g Beef, 2 tbsp Peanut Sauce",               foodType: "dinner",    calories: 426, carbs: 49, proteins: 20, fats: 17 },
+  { id: 81, name: "Roasted Laing",               portion: "1 cup Taro Leaves in Coconut Milk",            foodType: "dinner",    calories: 571, carbs: 27, proteins: 35, fats: 20 },
+  { id: 82, name: "Steamed Dinuguan",            portion: "1 cup Pork Blood Stew",                        foodType: "breakfast", calories: 495, carbs: 22, proteins: 32, fats: 10 },
+  { id: 83, name: "Classic Turkey Wrap",         portion: "1 whole wheat tortilla, 100g turkey",          foodType: "dinner",    calories: 696, carbs: 30, proteins: 27, fats: 15 },
+  { id: 84, name: "Roasted Tortang Talong",      portion: "1 medium Eggplant with 1 Egg",                 foodType: "breakfast", calories: 632, carbs: 37, proteins: 34, fats: 5  },
+  { id: 85, name: "Grilled Tapsilog",            portion: "1 cup Garlic Rice, 100g Beef, 1 Egg",          foodType: "breakfast", calories: 623, carbs: 32, proteins: 35, fats: 7  },
+  { id: 86, name: "Spicy Pork Steak",            portion: "150g Pork Loin slices",                        foodType: "lunch",     calories: 483, carbs: 24, proteins: 37, fats: 20 },
+  { id: 87, name: "Steamed Tapsilog",            portion: "1 cup Garlic Rice, 100g Beef, 1 Egg",          foodType: "lunch",     calories: 319, carbs: 33, proteins: 38, fats: 12 },
+  { id: 88, name: "Roasted Beef Pares",          portion: "150g Beef Stew, 1 cup Rice",                   foodType: "breakfast", calories: 504, carbs: 29, proteins: 22, fats: 14 },
+  { id: 89, name: "Homemade Tinola na Manok",    portion: "150g Chicken, 1 cup Broth",                    foodType: "breakfast", calories: 651, carbs: 49, proteins: 29, fats: 19 },
+  { id: 90, name: "Roasted Tinola na Manok",     portion: "150g Chicken, 1 cup Broth",                    foodType: "dinner",    calories: 690, carbs: 46, proteins: 30, fats: 20 },
+  { id: 91, name: "Homemade Nilagang Baka",      portion: "150g Beef, 1 cup Broth",                       foodType: "lunch",     calories: 373, carbs: 46, proteins: 23, fats: 14 },
+  { id: 92, name: "Baked Ginisang Monggo",       portion: "1 cup cooked Mung Beans",                      foodType: "breakfast", calories: 360, carbs: 48, proteins: 34, fats: 20 },
+  { id: 93, name: "Steamed Inihaw na Pusit",     portion: "1 medium Grilled Squid",                       foodType: "breakfast", calories: 512, carbs: 48, proteins: 25, fats: 5  },
+  { id: 94, name: "Homemade Quinoa Salad",       portion: "1 cup cooked with veggies",                    foodType: "breakfast", calories: 358, carbs: 54, proteins: 38, fats: 15 },
+  { id: 95, name: "Homemade Laing",              portion: "1 cup Taro Leaves in Coconut Milk",            foodType: "dinner",    calories: 480, carbs: 47, proteins: 27, fats: 23 },
+  { id: 96, name: "Roasted Mechado",             portion: "150g Beef with Potato",                        foodType: "breakfast", calories: 314, carbs: 21, proteins: 27, fats: 14 },
+  { id: 97, name: "Homemade Pork Sinigang",      portion: "150g Pork, 1 cup Broth with Veggies",          foodType: "breakfast", calories: 398, carbs: 31, proteins: 16, fats: 16 },
+  { id: 98, name: "Grilled Beef Pares",          portion: "150g Beef Stew, 1 cup Rice",                   foodType: "dinner",    calories: 627, carbs: 41, proteins: 35, fats: 25 },
+  { id: 99, name: "Classic Oatmeal",             portion: "1 cup cooked with honey",                      foodType: "dinner",    calories: 606, carbs: 26, proteins: 37, fats: 11 },
+  { id: 100, name: "Homemade Inihaw na Pusit",   portion: "1 medium Grilled Squid",                       foodType: "dinner",    calories: 605, carbs: 29, proteins: 23, fats: 24 },
+];
+
+
+// ─── All 40 exercises from Exercise Plan ─────────────────────────────────────
+const EXERCISE_DATA = [
+  { id: 1,  name: "Plank",                exerciseType: "Core",    setsDuration: "3 sets · 1 min",    intensityScore: 2 },
+  { id: 2,  name: "Russian Twists",       exerciseType: "Core",    setsDuration: "3 sets · 20 reps",  intensityScore: 3 },
+  { id: 3,  name: "Leg Raises",           exerciseType: "Core",    setsDuration: "3 sets · 15 reps",  intensityScore: 3 },
+  { id: 4,  name: "Deadbugs",             exerciseType: "Core",    setsDuration: "3 sets · 12 reps",  intensityScore: 2 },
+  { id: 5,  name: "Bird Dog",             exerciseType: "Core",    setsDuration: "3 sets · 12 reps",  intensityScore: 2 },
+  { id: 6,  name: "Hollow Body Hold",     exerciseType: "Core",    setsDuration: "3 sets · 45 sec",   intensityScore: 3 },
+  { id: 7,  name: "V-Ups",               exerciseType: "Core",    setsDuration: "3 sets · 10 reps",  intensityScore: 4 },
+  { id: 8,  name: "Mountain Climbers",    exerciseType: "Core",    setsDuration: "3 sets · 30 sec",   intensityScore: 4 },
+  { id: 9,  name: "Side Plank",           exerciseType: "Core",    setsDuration: "3 sets · 45 sec",   intensityScore: 3 },
+  { id: 10, name: "Crunches",             exerciseType: "Core",    setsDuration: "3 sets · 20 reps",  intensityScore: 2 },
+  { id: 11, name: "Squats",               exerciseType: "Lower",   setsDuration: "4 sets · 12 reps",  intensityScore: 3 },
+  { id: 12, name: "Lunges",               exerciseType: "Lower",   setsDuration: "3 sets · 10 reps",  intensityScore: 3 },
+  { id: 13, name: "Deadlifts",            exerciseType: "Lower",   setsDuration: "4 sets · 8 reps",   intensityScore: 5 },
+  { id: 14, name: "Glute Bridges",        exerciseType: "Lower",   setsDuration: "3 sets · 15 reps",  intensityScore: 2 },
+  { id: 15, name: "Calf Raises",          exerciseType: "Lower",   setsDuration: "4 sets · 20 reps",  intensityScore: 2 },
+  { id: 16, name: "Leg Press",            exerciseType: "Lower",   setsDuration: "3 sets · 12 reps",  intensityScore: 3 },
+  { id: 17, name: "Step-ups",             exerciseType: "Lower",   setsDuration: "3 sets · 10 reps",  intensityScore: 3 },
+  { id: 18, name: "Bulgarian Split Squat",exerciseType: "Lower",   setsDuration: "3 sets · 8 reps",   intensityScore: 4 },
+  { id: 19, name: "Leg Curls",            exerciseType: "Lower",   setsDuration: "3 sets · 12 reps",  intensityScore: 3 },
+  { id: 20, name: "Box Jumps",            exerciseType: "Lower",   setsDuration: "3 sets · 10 reps",  intensityScore: 5 },
+  { id: 21, name: "Push-ups",             exerciseType: "Upper",   setsDuration: "3 sets · 15 reps",  intensityScore: 2 },
+  { id: 22, name: "Pull-ups",             exerciseType: "Upper",   setsDuration: "3 sets · 8 reps",   intensityScore: 5 },
+  { id: 23, name: "Shoulder Press",       exerciseType: "Upper",   setsDuration: "3 sets · 12 reps",  intensityScore: 3 },
+  { id: 24, name: "Bicep Curls",          exerciseType: "Upper",   setsDuration: "3 sets · 12 reps",  intensityScore: 2 },
+  { id: 25, name: "Tricep Dips",          exerciseType: "Upper",   setsDuration: "3 sets · 12 reps",  intensityScore: 3 },
+  { id: 26, name: "Bent Over Rows",       exerciseType: "Upper",   setsDuration: "3 sets · 10 reps",  intensityScore: 4 },
+  { id: 27, name: "Bench Press",          exerciseType: "Upper",   setsDuration: "4 sets · 8 reps",   intensityScore: 4 },
+  { id: 28, name: "Lat Pulldown",         exerciseType: "Upper",   setsDuration: "3 sets · 12 reps",  intensityScore: 3 },
+  { id: 29, name: "Lateral Raises",       exerciseType: "Upper",   setsDuration: "3 sets · 15 reps",  intensityScore: 2 },
+  { id: 30, name: "Face Pulls",           exerciseType: "Upper",   setsDuration: "3 sets · 15 reps",  intensityScore: 2 },
+  { id: 31, name: "Running",              exerciseType: "Cardio",  setsDuration: "30 mins",            intensityScore: 4 },
+  { id: 32, name: "Swimming",             exerciseType: "Cardio",  setsDuration: "20 mins",            intensityScore: 3 },
+  { id: 33, name: "Cycling",              exerciseType: "Cardio",  setsDuration: "45 mins",            intensityScore: 3 },
+  { id: 34, name: "Jump Rope",            exerciseType: "Cardio",  setsDuration: "15 mins",            intensityScore: 4 },
+  { id: 35, name: "Burpees",              exerciseType: "Cardio",  setsDuration: "3 sets · 10 reps",  intensityScore: 5 },
+  { id: 36, name: "Rowing",              exerciseType: "Cardio",  setsDuration: "20 mins",            intensityScore: 4 },
+  { id: 37, name: "High Knees",           exerciseType: "Cardio",  setsDuration: "5 sets · 30 sec",   intensityScore: 4 },
+  { id: 38, name: "Stair Climber",        exerciseType: "Cardio",  setsDuration: "15 mins",            intensityScore: 3 },
+  { id: 39, name: "Elliptical",           exerciseType: "Cardio",  setsDuration: "30 mins",            intensityScore: 2 },
+  { id: 40, name: "Battle Ropes",         exerciseType: "Cardio",  setsDuration: "5 sets · 30 sec",   intensityScore: 5 },
+];
+
+// ─── Exercise Matching Engine ─────────────────────────────────────────────────
+// intensityScore key:
+//   1-2 = light/recovery  (good for cut/sedentary/obese)
+//   3   = moderate         (good for maintain/light-moderate activity)
+//   4-5 = intense          (good for bulk/athlete/heavy)
+
+function getExerciseProfile(goal: string, activityKey: string, bmi: number) {
+  // Target intensity range based on goal + activity
+  const intensityTarget =
+    goal === "cut" && (activityKey === "sedentary" || bmi >= 30) ? 2 :
+    goal === "cut" ? 3 :
+    goal === "bulk" && (activityKey === "athlete" || activityKey === "heavy") ? 5 :
+    goal === "bulk" ? 4 :
+    activityKey === "sedentary" ? 2 :
+    activityKey === "light" ? 3 :
+    activityKey === "moderate" ? 3 :
+    activityKey === "heavy" ? 4 :
+    4; // athlete
+
+  // How many of each type to recommend
+  const typeCount =
+    goal === "cut"  ? { Core: 2, Lower: 2, Upper: 2, Cardio: 3 } :
+    goal === "bulk" ? { Core: 2, Lower: 3, Upper: 3, Cardio: 1 } :
+                     { Core: 2, Lower: 2, Upper: 2, Cardio: 2 };
+
+  return { intensityTarget, typeCount };
+}
+
+function findMatchingExercises(
+  goal: string,
+  activityKey: string,
+  bmi: number
+): Record<string, typeof EXERCISE_DATA> {
+  const { intensityTarget, typeCount } = getExerciseProfile(goal, activityKey, bmi);
+
+  const types = ["Core", "Lower", "Upper", "Cardio"] as const;
+  const result: Record<string, typeof EXERCISE_DATA> = {};
+
+  for (const type of types) {
+    const pool = EXERCISE_DATA.filter(e => e.exerciseType === type);
+    // Sort by closest intensity score to target
+    const sorted = pool
+      .map(e => ({ ...e, diff: Math.abs(e.intensityScore - intensityTarget) }))
+      .sort((a, b) => a.diff - b.diff || a.id - b.id);
+    result[type] = sorted.slice(0, typeCount[type]);
+  }
+
+  return result;
+}
+
+// ─── Exercise Section Component ───────────────────────────────────────────────
+function ExerciseSection({
+  goal,
+  tdee,
+  activityKey,
+  bmi,
+}: {
+  goal: string;
+  tdee: number;
+  activityKey: string;
+  bmi: number;
+}) {
+  const [activeType, setActiveType] = useState<string>("Core");
+
+  if (!goal || !tdee) return null;
+
+  const matched = findMatchingExercises(goal, activityKey, bmi);
+
+  const typeConfig = {
+    Core:   { color: "text-violet-400", border: "border-violet-500/40", bg: "bg-violet-500/10", activeBg: "bg-violet-500/20", icon: "🧘" },
+    Lower:  { color: "text-orange-400", border: "border-orange-500/40", bg: "bg-orange-500/10", activeBg: "bg-orange-500/20", icon: "🦵" },
+    Upper:  { color: "text-sky-400",    border: "border-sky-500/40",    bg: "bg-sky-500/10",    activeBg: "bg-sky-500/20",    icon: "💪" },
+    Cardio: { color: "text-rose-400",   border: "border-rose-500/40",   bg: "bg-rose-500/10",   activeBg: "bg-rose-500/20",   icon: "🏃" },
+  } as const;
+
+  const intensityLabel = (score: number) =>
+    score <= 2 ? { label: "Light",    cls: "bg-sky-500/20 text-sky-400 border-sky-500/30"      } :
+    score === 3 ? { label: "Moderate", cls: "bg-yellow-500/20 text-yellow-400 border-yellow-500/30" } :
+    score === 4 ? { label: "Hard",     cls: "bg-orange-500/20 text-orange-400 border-orange-500/30" } :
+                  { label: "Intense",  cls: "bg-red-500/20 text-red-400 border-red-500/30"      };
+
+  const goalLabel =
+    goal === "cut"  ? { text: "Fat Burn Focus — Cardio-heavy, moderate strength", color: "text-rose-400"    } :
+    goal === "bulk" ? { text: "Muscle Build Focus — Strength-heavy, minimal cardio", color: "text-emerald-400" } :
+                     { text: "Balanced Training — Even split across all types",     color: "text-sky-400"    };
+
+  const totalExercises = Object.values(matched).reduce((s, arr) => s + arr.length, 0);
+
+  return (
+    <div className="space-y-5">
+      {/* Goal banner */}
+      <div className="rounded-xl border border-white/10 bg-neutral-900/60 px-4 py-3 flex flex-wrap items-center gap-4">
+        <div>
+          <p className="text-xs text-neutral-500 uppercase tracking-widest mb-0.5">Training Focus</p>
+          <p className={cn("text-sm font-semibold", goalLabel.color)}>{goalLabel.text}</p>
+        </div>
+        <div className="ml-auto text-right">
+          <p className="text-xs text-neutral-500 uppercase tracking-widest mb-0.5">Today's Plan</p>
+          <p className="text-sm font-semibold text-white">{totalExercises} exercises selected</p>
+        </div>
+      </div>
+
+      {/* Type tabs */}
+      <div className="grid grid-cols-4 gap-2">
+        {(["Core", "Lower", "Upper", "Cardio"] as const).map(type => {
+          const cfg    = typeConfig[type];
+          const isActive = activeType === type;
+          const count  = matched[type]?.length ?? 0;
+          return (
+            <button
+              key={type}
+              onClick={() => setActiveType(type)}
+              className={cn(
+                "rounded-xl border px-3 py-3 text-center transition-all duration-200",
+                isActive ? cn(cfg.activeBg, cfg.border, cfg.color) : "border-white/10 bg-neutral-900 text-neutral-500 hover:text-neutral-300 hover:bg-neutral-800"
+              )}
+            >
+              <div className="text-lg mb-1">{cfg.icon}</div>
+              <p className="text-xs font-semibold">{type}</p>
+              <p className="text-xs opacity-60">{count} exercises</p>
+            </button>
+          );
+        })}
+      </div>
+
+      {/* Exercise cards for active type */}
+      <div className="space-y-3">
+        {(matched[activeType] ?? []).map((ex, idx) => {
+          const cfg = typeConfig[activeType as keyof typeof typeConfig];
+          const lvl = intensityLabel(ex.intensityScore);
+          return (
+            <div
+              key={ex.id}
+              className={cn(
+                "rounded-xl border p-4 flex items-center gap-4 transition-all",
+                idx === 0 ? cn(cfg.bg, cfg.border, "ring-1", cfg.border.replace("border-", "ring-")) : "border-white/10 bg-neutral-900"
+              )}
+            >
+              {/* Rank number */}
+              <div className={cn(
+                "w-9 h-9 rounded-xl flex items-center justify-center text-sm font-bold shrink-0",
+                idx === 0 ? cn(cfg.activeBg, cfg.color) : "bg-white/5 text-neutral-500"
+              )}>
+                {idx + 1}
+              </div>
+
+              <div className="flex-1 min-w-0">
+                <div className="flex items-center gap-2 flex-wrap mb-1">
+                  <p className="text-white font-semibold text-sm">{ex.name}</p>
+                  {idx === 0 && (
+                    <span className={cn("text-xs px-2 py-0.5 rounded-full border font-semibold", cfg.bg, cfg.border, cfg.color)}>
+                      ✓ Best Match
+                    </span>
+                  )}
+                </div>
+                <p className="text-xs text-neutral-500">{ex.setsDuration}</p>
+              </div>
+
+              {/* Intensity badge */}
+              <div className="shrink-0 text-right">
+                <span className={cn("text-xs px-2 py-1 rounded-lg border font-semibold", lvl.cls)}>
+                  {lvl.label}
+                </span>
+                {/* Intensity dots */}
+                <div className="flex gap-0.5 mt-1.5 justify-end">
+                  {[1, 2, 3, 4, 5].map(dot => (
+                    <div
+                      key={dot}
+                      className={cn(
+                        "w-1.5 h-1.5 rounded-full",
+                        dot <= ex.intensityScore
+                          ? ex.intensityScore <= 2 ? "bg-sky-400"
+                          : ex.intensityScore === 3 ? "bg-yellow-400"
+                          : ex.intensityScore === 4 ? "bg-orange-400"
+                          : "bg-red-400"
+                          : "bg-white/10"
+                      )}
+                    />
+                  ))}
+                </div>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+
+      {/* Full plan summary at bottom */}
+      <div className="rounded-xl border border-white/10 bg-neutral-900/40 p-4">
+        <p className="text-xs uppercase tracking-widest text-neutral-500 mb-3 font-medium">Full Week Snapshot</p>
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+          {(["Core", "Lower", "Upper", "Cardio"] as const).map(type => {
+            const cfg   = typeConfig[type];
+            const items = matched[type] ?? [];
+            return (
+              <div key={type} className={cn("rounded-xl border p-3", cfg.bg, cfg.border)}>
+                <p className={cn("text-xs font-semibold mb-2 flex items-center gap-1.5", cfg.color)}>
+                  <span>{cfg.icon}</span> {type}
+                </p>
+                <ul className="space-y-1">
+                  {items.map(e => (
+                    <li key={e.id} className="text-xs text-neutral-400 flex items-start gap-1.5">
+                      <span className="mt-1 w-1 h-1 rounded-full bg-neutral-600 shrink-0" />
+                      {e.name}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    </div>
+  );
+}
+
 // ─── Types ──────────────────────────────────────────────────────────────────────
 interface HealthCheck {
   spo2: number;
@@ -134,7 +498,6 @@ const ACTIVITY_LEVELS = [
 
 function calcBMR(weight: number, height: number, age: number, gender: string): number {
   if (!weight || !height || !age || !gender) return 0;
-  // Mifflin-St Jeor
   if (gender === "male")   return 10 * weight + 6.25 * height - 5 * age + 5;
   if (gender === "female") return 10 * weight + 6.25 * height - 5 * age - 161;
   return 0;
@@ -144,39 +507,32 @@ function calcTDEE(bmr: number, multiplier: number): number {
   return Math.round(bmr * multiplier);
 }
 
-// Ideal weight formulas (male: height in cm, returns kg)
 function calcIdealWeight(height: number, gender: string) {
   if (!height || !gender) return null;
-  const h = height - 152.4; // excess cm over 5ft (152.4cm)
+  const h = height - 152.4;
   const inchesOver5ft = h / 2.54;
   if (gender === "male") return {
-    hamwi:   Math.round(48.0 + 2.7 * inchesOver5ft),
-    devine:  Math.round(50.0 + 2.3 * inchesOver5ft),
-    robinson:Math.round(52.0 + 1.9 * inchesOver5ft),
-    miller:  Math.round(56.2 + 1.41 * inchesOver5ft),
+    hamwi:    Math.round(48.0 + 2.7 * inchesOver5ft),
+    devine:   Math.round(50.0 + 2.3 * inchesOver5ft),
+    robinson: Math.round(52.0 + 1.9 * inchesOver5ft),
+    miller:   Math.round(56.2 + 1.41 * inchesOver5ft),
   };
   return {
-    hamwi:   Math.round(45.5 + 2.2 * inchesOver5ft),
-    devine:  Math.round(45.5 + 2.3 * inchesOver5ft),
-    robinson:Math.round(49.0 + 1.7 * inchesOver5ft),
-    miller:  Math.round(53.1 + 1.36 * inchesOver5ft),
+    hamwi:    Math.round(45.5 + 2.2 * inchesOver5ft),
+    devine:   Math.round(45.5 + 2.3 * inchesOver5ft),
+    robinson: Math.round(49.0 + 1.7 * inchesOver5ft),
+    miller:   Math.round(53.1 + 1.36 * inchesOver5ft),
   };
 }
 
-// Berkhan max muscular potential (male only, height in cm)
 function calcMuscularPotential(height: number) {
-  const heightM = height / 100;
-  const at5  = Math.round((heightM - 1.0) * 100 * 0.453592 + (heightM * 100 - 100) * 0.453592 + height - 100);
-  // Simplified: lean body mass at contest (5% bf)
-  const lean = Math.round(height * 0.453592 - 98 * 0.453592 + 2); // rough
   return {
-    at5:  Math.round(height * 0.453592 - 98 * 0.453592 + height - 100 + 10), // approximation
-    at10: Math.round(height - 100),  // Berkhan: (height in cm - 100) kg at ~10% bf
+    at5:  Math.round(height * 0.453592 - 98 * 0.453592 + height - 100 + 10),
+    at10: Math.round(height - 100),
     at15: Math.round(height - 97),
   };
 }
 
-// Macros
 function calcMacros(calories: number) {
   const splits = [
     { label: "Moderate Carb", ratio: "30/35/35", p: 0.30, f: 0.35, c: 0.35 },
@@ -189,6 +545,212 @@ function calcMacros(calories: number) {
     fat:     Math.round((calories * s.f) / 9),
     carbs:   Math.round((calories * s.c) / 4),
   }));
+}
+
+// ─── DIET_DATA Meal Matching Engine ────────────────────────────────────────────
+// Scores each meal in DIET_DATA against calculated per-meal calorie & macro targets.
+// Returns the top `limit` closest-matching meals for the given meal type.
+function findMatchingMeals(
+  targetCalories: number,
+  targetProtein: number,
+  targetCarbs: number,
+  targetFat: number,
+  foodType: "breakfast" | "lunch" | "dinner",
+  limit = 4
+) {
+  const pool = DIET_DATA.filter(m => m.foodType === foodType);
+
+  const scored = pool.map(m => {
+    // Calorie closeness (50% weight) — normalized distance
+    const calScore = Math.abs(m.calories - targetCalories) / (targetCalories || 1);
+
+    // Macro ratio closeness (50% weight) — compare proportions not raw grams
+    const mTotal = (m.proteins + m.carbs + m.fats) || 1;
+    const pRatio = m.proteins / mTotal;
+    const cRatio = m.carbs    / mTotal;
+    const fRatio = m.fats     / mTotal;
+
+    const tTotal = (targetProtein + targetCarbs + targetFat) || 1;
+    const pT = targetProtein / tTotal;
+    const cT = targetCarbs   / tTotal;
+    const fT = targetFat     / tTotal;
+
+    const macroScore = (
+      Math.abs(pRatio - pT) +
+      Math.abs(cRatio - cT) +
+      Math.abs(fRatio - fT)
+    ) / 3;
+
+    // Lower score = better match
+    return { ...m, score: calScore * 0.5 + macroScore * 0.5 };
+  });
+
+  return scored.sort((a, b) => a.score - b.score).slice(0, limit);
+}
+
+// ─── Diet Section (TDEE-matched meals from DIET_DATA) ──────────────────────────
+function DietSection({
+  goal,
+  tdee,
+  weight,
+  activityKey,
+}: {
+  goal: string;
+  tdee: number;
+  weight: number;
+  activityKey: string;
+}) {
+  if (!goal || !tdee) return null;
+
+  // Per-meal calorie target = TDEE ÷ 3 meals, adjusted by goal
+  const baseMealCal = Math.round(tdee / 3);
+  const calTarget =
+    goal === "cut"  ? Math.round(baseMealCal * 0.85) :  // ~15% deficit per meal
+    goal === "bulk" ? Math.round(baseMealCal * 1.15) :  // ~15% surplus per meal
+    baseMealCal;
+
+  // Protein target from activity level
+  const proteinPerKg =
+    activityKey === "athlete" || activityKey === "heavy" ? 2.0 :
+    activityKey === "moderate" ? 1.8 : 1.6;
+  const dailyProtein = weight > 0 ? weight * proteinPerKg : (tdee * 0.30) / 4;
+  const dailyCarbs   = (tdee * 0.35) / 4;
+  const dailyFat     = (tdee * 0.30) / 9;
+
+  // Per-meal macro targets
+  const mealProtein = Math.round(dailyProtein / 3);
+  const mealCarbs   = Math.round(dailyCarbs   / 3);
+  const mealFat     = Math.round(dailyFat     / 3);
+
+  const mealTypes = ["breakfast", "lunch", "dinner"] as const;
+
+  const goalLabel =
+    goal === "cut"  ? "Fat Loss (−15% cal/meal)" :
+    goal === "bulk" ? "Lean Bulk (+15% cal/meal)" :
+    "Maintenance";
+
+  const goalColor =
+    goal === "cut"  ? "text-rose-400 bg-rose-500/10 border-rose-500/30" :
+    goal === "bulk" ? "text-emerald-400 bg-emerald-500/10 border-emerald-500/30" :
+    "text-sky-400 bg-sky-500/10 border-sky-500/30";
+
+  return (
+    <div className="space-y-6">
+      {/* Goal + target summary banner */}
+      <div className={cn("rounded-xl border px-4 py-3 flex flex-wrap items-center gap-4", goalColor)}>
+        <div>
+          <p className="text-xs opacity-60 mb-0.5 uppercase tracking-widest">Goal</p>
+          <p className="text-sm font-semibold">{goalLabel}</p>
+        </div>
+        <div>
+          <p className="text-xs opacity-60 mb-0.5 uppercase tracking-widest">TDEE</p>
+          <p className="text-sm font-semibold">{tdee.toLocaleString()} cal/day</p>
+        </div>
+        <div>
+          <p className="text-xs opacity-60 mb-0.5 uppercase tracking-widest">Per Meal Target</p>
+          <p className="text-sm font-semibold">{calTarget} cal</p>
+        </div>
+        <div>
+          <p className="text-xs opacity-60 mb-0.5 uppercase tracking-widest">Protein / Meal</p>
+          <p className="text-sm font-semibold">{mealProtein}g</p>
+        </div>
+      </div>
+
+      {mealTypes.map(type => {
+        const meals = findMatchingMeals(
+          calTarget,
+          mealProtein,
+          mealCarbs,
+          mealFat,
+          type,
+          4
+        );
+
+        return (
+          <div key={type}>
+            <h3 className="text-white font-semibold mb-3 capitalize flex items-center gap-2">
+              {type === "breakfast" ? "🌅" : type === "lunch" ? "☀️" : "🌙"} {type}
+              <span className="text-xs text-neutral-500 font-normal">
+                best matches for {calTarget} cal · P:{mealProtein}g · C:{mealCarbs}g · F:{mealFat}g
+              </span>
+            </h3>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              {meals.map((meal, idx) => {
+                const calDiff    = meal.calories - calTarget;
+                const fitPercent = Math.max(5, 100 - Math.round(Math.abs(calDiff) / (calTarget || 1) * 100));
+                const isOver     = calDiff > 0;
+                const isExact    = calDiff === 0;
+
+                return (
+                  <div
+                    key={meal.id}
+                    className={cn(
+                      "bg-neutral-900 border rounded-xl p-4 transition-all",
+                      idx === 0
+                        ? "border-green-500/40 ring-1 ring-green-500/20"
+                        : "border-white/10"
+                    )}
+                  >
+                    {/* Best match badge for top result */}
+                    {idx === 0 && (
+                      <span className="inline-block text-xs px-2 py-0.5 rounded-full bg-green-500/20 text-green-400 border border-green-500/30 mb-2 font-semibold">
+                        ✓ Best Match
+                      </span>
+                    )}
+
+                    <p className="text-white font-semibold leading-snug">{meal.name}</p>
+                    <p className="text-xs text-neutral-500 mt-0.5 mb-2">{meal.portion}</p>
+
+                    {/* Macro chips */}
+                    <div className="flex flex-wrap gap-2 mb-3 text-xs">
+                      <span className="bg-neutral-800 text-neutral-300 px-2 py-0.5 rounded-md">
+                        {meal.calories} cal
+                      </span>
+                      <span className="bg-red-500/15 text-red-400 px-2 py-0.5 rounded-md">
+                        P: {meal.proteins}g
+                      </span>
+                      <span className="bg-green-500/15 text-green-400 px-2 py-0.5 rounded-md">
+                        C: {meal.carbs}g
+                      </span>
+                      <span className="bg-yellow-500/15 text-yellow-400 px-2 py-0.5 rounded-md">
+                        F: {meal.fats}g
+                      </span>
+                    </div>
+
+                    {/* Calorie fit bar */}
+                    <div className="h-1.5 bg-white/10 rounded-full overflow-hidden mb-1">
+                      <div
+                        className={cn(
+                          "h-full rounded-full transition-all duration-500",
+                          fitPercent >= 90 ? "bg-green-500" :
+                          fitPercent >= 70 ? "bg-yellow-500" :
+                          "bg-orange-500"
+                        )}
+                        style={{ width: `${fitPercent}%` }}
+                      />
+                    </div>
+                    <p className={cn(
+                      "text-xs",
+                      isExact ? "text-green-400" :
+                      isOver  ? "text-orange-400" :
+                      "text-sky-400"
+                    )}>
+                      {isExact
+                        ? "Exact calorie match"
+                        : isOver
+                        ? `+${calDiff} cal over target`
+                        : `${Math.abs(calDiff)} cal under target`}
+                    </p>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        );
+      })}
+    </div>
+  );
 }
 
 // ─── TDEE Suggestions Engine ────────────────────────────────────────────────────
@@ -304,9 +866,9 @@ function buildTDEESuggestions(
     title: g.title,
     subtitle: g.subtitle,
     chips: [
-      { label: "Your TDEE",   value: `${tdee.toLocaleString()} cal`, color: "bg-neutral-800 text-neutral-300 border-neutral-700" },
-      { label: "Target",      value: `${g.calTarget.toLocaleString()} cal`, color: "bg-violet-500/20 text-violet-300 border-violet-500/30" },
-      { label: "Difference",  value: g.calTarget === tdee ? "± 0 cal" : `${g.calTarget > tdee ? "+" : ""}${(g.calTarget - tdee).toLocaleString()} cal`, color: g.calTarget < tdee ? "bg-rose-500/20 text-rose-300 border-rose-500/30" : g.calTarget > tdee ? "bg-emerald-500/20 text-emerald-300 border-emerald-500/30" : "bg-neutral-800 text-neutral-300 border-neutral-700" },
+      { label: "Your TDEE",  value: `${tdee.toLocaleString()} cal`, color: "bg-neutral-800 text-neutral-300 border-neutral-700" },
+      { label: "Target",     value: `${g.calTarget.toLocaleString()} cal`, color: "bg-violet-500/20 text-violet-300 border-violet-500/30" },
+      { label: "Difference", value: g.calTarget === tdee ? "± 0 cal" : `${g.calTarget > tdee ? "+" : ""}${(g.calTarget - tdee).toLocaleString()} cal`, color: g.calTarget < tdee ? "bg-rose-500/20 text-rose-300 border-rose-500/30" : g.calTarget > tdee ? "bg-emerald-500/20 text-emerald-300 border-emerald-500/30" : "bg-neutral-800 text-neutral-300 border-neutral-700" },
     ],
     tips: g.tips,
   });
@@ -320,9 +882,9 @@ function buildTDEESuggestions(
     title: "Your Calorie Targets at a Glance",
     subtitle: "Based on your TDEE, here are the calorie ranges for each goal.",
     chips: [
-      { label: "BMR (rest)",     value: `${Math.round(bmr).toLocaleString()} cal`, color: "bg-neutral-800 text-neutral-300 border-neutral-700" },
-      { label: "TDEE (maintain)", value: `${tdee.toLocaleString()} cal`,            color: "bg-neutral-800 text-neutral-300 border-neutral-700" },
-      { label: "Weekly burn",    value: `${(tdee * 7).toLocaleString()} cal`,       color: "bg-neutral-800 text-neutral-300 border-neutral-700" },
+      { label: "BMR (rest)",      value: `${Math.round(bmr).toLocaleString()} cal`, color: "bg-neutral-800 text-neutral-300 border-neutral-700" },
+      { label: "TDEE (maintain)", value: `${tdee.toLocaleString()} cal`,             color: "bg-neutral-800 text-neutral-300 border-neutral-700" },
+      { label: "Weekly burn",     value: `${(tdee * 7).toLocaleString()} cal`,        color: "bg-neutral-800 text-neutral-300 border-neutral-700" },
     ],
     tips: [
       `🔥 Aggressive cut: ${(tdee - 750).toLocaleString()} cal/day (−750, max safe deficit — short-term only).`,
@@ -336,8 +898,8 @@ function buildTDEESuggestions(
   });
 
   // ── 3. Protein Target ────────────────────────────────────────────────────────
-  const fatG    = weight > 0 ? Math.round(weight * 0.8) : Math.round((tdee * 0.28) / 9);
-  const carbsG  = Math.round((tdee - proteinCal - fatG * 9) / 4);
+  const fatG   = weight > 0 ? Math.round(weight * 0.8) : Math.round((tdee * 0.28) / 9);
+  const carbsG = Math.round((tdee - proteinCal - fatG * 9) / 4);
 
   results.push({
     id: "macros",
@@ -347,9 +909,9 @@ function buildTDEESuggestions(
     title: "Optimal Macro Targets for Your Goal",
     subtitle: `Based on ${tdee.toLocaleString()} cal TDEE, ${activityKey.replace(/([A-Z])/g, " $1")} activity, and ${gender || "your"} body.`,
     chips: [
-      { label: "Protein", value: `${proteinG}g/day`, color: "bg-red-500/20 text-red-300 border-red-500/30" },
-      { label: "Fat",     value: `${fatG}g/day`,     color: "bg-yellow-500/20 text-yellow-300 border-yellow-500/30" },
-      { label: "Carbs",   value: `${Math.max(0, carbsG)}g/day`, color: "bg-green-500/20 text-green-300 border-green-500/30" },
+      { label: "Protein", value: `${proteinG}g/day`,              color: "bg-red-500/20 text-red-300 border-red-500/30" },
+      { label: "Fat",     value: `${fatG}g/day`,                  color: "bg-yellow-500/20 text-yellow-300 border-yellow-500/30" },
+      { label: "Carbs",   value: `${Math.max(0, carbsG)}g/day`,   color: "bg-green-500/20 text-green-300 border-green-500/30" },
     ],
     tips: [
       `Protein: ${proteinG}g/day (${proteinPerKg}g per kg body weight) — prioritize this above all macros.`,
@@ -400,8 +962,8 @@ function buildTDEESuggestions(
   };
 
   const currentActivity = ACTIVITY_LEVELS.find(a => a.key === activityKey)!;
-  const nextActivity = ACTIVITY_LEVELS[ACTIVITY_LEVELS.findIndex(a => a.key === activityKey) + 1];
-  const calDiff = nextActivity ? Math.round(bmr * nextActivity.multiplier) - tdee : 0;
+  const nextActivity    = ACTIVITY_LEVELS[ACTIVITY_LEVELS.findIndex(a => a.key === activityKey) + 1];
+  const calDiff         = nextActivity ? Math.round(bmr * nextActivity.multiplier) - tdee : 0;
 
   results.push({
     id: "activity",
@@ -413,15 +975,15 @@ function buildTDEESuggestions(
       ? `Upgrading to "${nextActivity.label}" would add ~${calDiff.toLocaleString()} cal to your daily TDEE.`
       : "You're at the highest activity level — focus on training quality and recovery.",
     chips: [
-      { label: "Current TDEE",  value: `${tdee.toLocaleString()} cal`,     color: "bg-neutral-800 text-neutral-300 border-neutral-700" },
+      { label: "Current TDEE", value: `${tdee.toLocaleString()} cal`,   color: "bg-neutral-800 text-neutral-300 border-neutral-700" },
       ...(nextActivity ? [{ label: `${nextActivity.label} TDEE`, value: `${(tdee + calDiff).toLocaleString()} cal`, color: "bg-emerald-500/20 text-emerald-300 border-emerald-500/30" }] : []),
-      { label: "Multiplier",    value: `×${currentActivity.multiplier}`,   color: "bg-neutral-800 text-neutral-300 border-neutral-700" },
+      { label: "Multiplier",   value: `×${currentActivity.multiplier}`, color: "bg-neutral-800 text-neutral-300 border-neutral-700" },
     ],
     tips: activityTips[activityKey] || [],
   });
 
   // ── 5. Meal Timing ───────────────────────────────────────────────────────────
-  const mealCal = Math.round(tdee / 4);
+  const mealCal  = Math.round(tdee / 4);
   const snackCal = Math.round(tdee * 0.1);
 
   results.push({
@@ -450,7 +1012,7 @@ function buildTDEESuggestions(
 
   // ── 6. Progress Tracking ─────────────────────────────────────────────────────
   const weeklyDeficit = goal === "cut" ? -500 * 7 : goal === "bulk" ? 300 * 7 : 0;
-  const weeklyKg = weeklyDeficit / 7700; // ~7700 cal per kg
+  const weeklyKg      = weeklyDeficit / 7700;
 
   results.push({
     id: "progress",
@@ -461,8 +1023,8 @@ function buildTDEESuggestions(
     subtitle: "Set realistic expectations and know what to measure to stay on course.",
     chips: [
       { label: "Weekly cal balance", value: weeklyDeficit === 0 ? "±0 cal" : `${weeklyDeficit > 0 ? "+" : ""}${weeklyDeficit.toLocaleString()} cal`, color: weeklyDeficit < 0 ? "bg-rose-500/20 text-rose-300 border-rose-500/30" : weeklyDeficit > 0 ? "bg-emerald-500/20 text-emerald-300 border-emerald-500/30" : "bg-neutral-800 text-neutral-300 border-neutral-700" },
-      { label: "Expected/week", value: weeklyKg === 0 ? "Recomp" : `${weeklyKg > 0 ? "+" : ""}${weeklyKg.toFixed(2)} kg`, color: "bg-neutral-800 text-neutral-300 border-neutral-700" },
-      { label: "Goal", value: goal.charAt(0).toUpperCase() + goal.slice(1), color: "bg-teal-500/20 text-teal-300 border-teal-500/30" },
+      { label: "Expected/week",      value: weeklyKg === 0 ? "Recomp" : `${weeklyKg > 0 ? "+" : ""}${weeklyKg.toFixed(2)} kg`,                        color: "bg-neutral-800 text-neutral-300 border-neutral-700" },
+      { label: "Goal",               value: goal.charAt(0).toUpperCase() + goal.slice(1),                                                               color: "bg-teal-500/20 text-teal-300 border-teal-500/30" },
     ],
     tips: [
       "Weigh yourself every morning after using the bathroom, before eating. Use the weekly average.",
@@ -497,7 +1059,7 @@ function TDEESuggestionsSection({
   );
 
   const suggestions = buildTDEESuggestions(tdee, bmr, bmi, weight, age, gender, activityKey);
-  const goal = getRecommendedGoal(bmi, activityKey, gender);
+  const goal        = getRecommendedGoal(bmi, activityKey, gender);
 
   const goalColors: Record<GoalType, string> = {
     cut:     "bg-rose-500/20 text-rose-300 border-rose-500/40",
@@ -549,7 +1111,6 @@ function TDEESuggestionsSection({
               <div className="border-t border-white/5 px-5 pb-5">
                 <p className="text-xs text-neutral-500 mt-4 mb-3 leading-relaxed">{s.subtitle}</p>
 
-                {/* Chips */}
                 {s.chips.length > 0 && (
                   <div className="flex flex-wrap gap-2 mb-4">
                     {s.chips.map(c => (
@@ -561,7 +1122,6 @@ function TDEESuggestionsSection({
                   </div>
                 )}
 
-                {/* Tips */}
                 <p className="text-xs uppercase tracking-widest text-neutral-600 mb-2 font-medium">Action Steps</p>
                 <ul className="space-y-2">
                   {s.tips.map((tip, i) => (
@@ -701,7 +1261,6 @@ function TDEESection({ bmr, tdee, activityKey, onActivityChange }: {
 
   return (
     <div className="rounded-2xl border border-orange-500/30 bg-[#0d0d0d] bg-gradient-to-br from-orange-500/15 to-red-600/5 p-6 fade-up">
-      {/* Main calorie display */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
         <div>
           <p className="text-neutral-400 text-xs uppercase tracking-widest mb-1 flex items-center gap-1.5">
@@ -721,7 +1280,6 @@ function TDEESection({ bmr, tdee, activityKey, onActivityChange }: {
         </div>
       </div>
 
-      {/* Activity selector */}
       <p className="text-xs uppercase tracking-widest text-neutral-500 mb-2 font-medium">Activity Level</p>
       <div className="grid grid-cols-1 sm:grid-cols-5 gap-2 mb-6">
         {ACTIVITY_LEVELS.map((a) => (
@@ -736,14 +1294,13 @@ function TDEESection({ bmr, tdee, activityKey, onActivityChange }: {
         ))}
       </div>
 
-      {/* Activity breakdown table */}
       <p className="text-xs uppercase tracking-widest text-neutral-500 mb-2 font-medium">Calories by Activity Level</p>
       <div className="rounded-xl overflow-hidden border border-white/10">
         {ACTIVITY_LEVELS.map((a, i) => {
-          const cal = calcTDEE(bmr, a.multiplier);
+          const cal      = calcTDEE(bmr, a.multiplier);
           const isActive = a.key === activityKey;
-          const maxCal = calcTDEE(bmr, 1.9);
-          const pct = (cal / maxCal) * 100;
+          const maxCal   = calcTDEE(bmr, 1.9);
+          const pct      = (cal / maxCal) * 100;
           return (
             <div key={a.key} onClick={() => onActivityChange(a.key)}
               className={cn("flex items-center gap-3 px-4 py-3 cursor-pointer transition-all border-b border-white/5 last:border-b-0",
@@ -774,13 +1331,13 @@ function IdealWeightSection({ weight, height, gender }: { weight: number; height
   if (!ideal) return null;
 
   const values = [
-    { formula: "G.J. Hamwi Formula (1964)",   kg: ideal.hamwi },
-    { formula: "B.J. Devine Formula (1974)",  kg: ideal.devine },
+    { formula: "G.J. Hamwi Formula (1964)",    kg: ideal.hamwi },
+    { formula: "B.J. Devine Formula (1974)",   kg: ideal.devine },
     { formula: "J.D. Robinson Formula (1983)", kg: ideal.robinson },
     { formula: "D.R. Miller Formula (1983)",   kg: ideal.miller },
   ];
-  const low  = Math.min(...values.map(v => v.kg));
-  const high = Math.max(...values.map(v => v.kg));
+  const low     = Math.min(...values.map(v => v.kg));
+  const high    = Math.max(...values.map(v => v.kg));
   const inRange = weight >= low && weight <= high;
 
   return (
@@ -842,9 +1399,9 @@ function MuscularPotentialSection({ height, gender }: { height: number; gender: 
       <p className="text-sm text-neutral-500 mb-4">Based on Martin Berkhan's formula</p>
       <div className="grid grid-cols-3 gap-3">
         {[
-          { label: "5% Body Fat",  val: mp.at5,  desc: "Contest shape",     color: "text-red-400",    border: "border-red-500/30",    bg: "bg-red-500/10" },
-          { label: "10% Body Fat", val: mp.at10, desc: "Athletic / lean",   color: "text-orange-400", border: "border-orange-500/30", bg: "bg-orange-500/10" },
-          { label: "15% Body Fat", val: mp.at15, desc: "Healthy & muscular", color: "text-purple-400", border: "border-purple-500/30", bg: "bg-purple-500/10" },
+          { label: "5% Body Fat",   val: mp.at5,  desc: "Contest shape",      color: "text-red-400",    border: "border-red-500/30",    bg: "bg-red-500/10"    },
+          { label: "10% Body Fat",  val: mp.at10, desc: "Athletic / lean",    color: "text-orange-400", border: "border-orange-500/30", bg: "bg-orange-500/10" },
+          { label: "15% Body Fat",  val: mp.at15, desc: "Healthy & muscular", color: "text-purple-400", border: "border-purple-500/30", bg: "bg-purple-500/10" },
         ].map(item => (
           <div key={item.label} className={cn("rounded-xl border p-4 text-center", item.bg, item.border)}>
             <p className={cn("text-2xl font-bold", item.color)}>{item.val} kg</p>
@@ -864,14 +1421,14 @@ function MacrosSection({ tdee }: { tdee: number }) {
 
   const cals = { maintenance: tdee, cutting: tdee - 500, bulking: tdee + 500 };
   const tabs = [
-    { key: "maintenance", label: "Maintenance", cal: cals.maintenance, color: "text-sky-400",    border: "border-sky-500/50",    bg: "bg-sky-500/20" },
-    { key: "cutting",     label: "Cutting",     cal: cals.cutting,     color: "text-rose-400",   border: "border-rose-500/50",   bg: "bg-rose-500/20" },
+    { key: "maintenance", label: "Maintenance", cal: cals.maintenance, color: "text-sky-400",     border: "border-sky-500/50",     bg: "bg-sky-500/20"     },
+    { key: "cutting",     label: "Cutting",     cal: cals.cutting,     color: "text-rose-400",    border: "border-rose-500/50",    bg: "bg-rose-500/20"    },
     { key: "bulking",     label: "Bulking",     cal: cals.bulking,     color: "text-emerald-400", border: "border-emerald-500/50", bg: "bg-emerald-500/20" },
   ] as const;
 
-  const activeCal = cals[tab];
-  const macros = calcMacros(activeCal);
-  const activeTab = tabs.find(t => t.key === tab)!;
+  const activeCal  = cals[tab];
+  const macros     = calcMacros(activeCal);
+  const activeTab  = tabs.find(t => t.key === tab)!;
 
   return (
     <div className="rounded-2xl border border-sky-500/30 bg-[#0d0d0d] bg-gradient-to-br from-sky-500/15 to-blue-600/5 p-6 fade-up">
@@ -880,7 +1437,6 @@ function MacrosSection({ tdee }: { tdee: number }) {
         Macronutrients
       </p>
 
-      {/* Tab switcher */}
       <div className="flex gap-2 mb-5">
         {tabs.map(t => (
           <button key={t.key} onClick={() => setTab(t.key as typeof tab)}
@@ -891,7 +1447,6 @@ function MacrosSection({ tdee }: { tdee: number }) {
         ))}
       </div>
 
-      {/* Calorie note */}
       <div className={cn("rounded-xl border px-4 py-3 mb-5 flex items-center justify-between", activeTab.bg, activeTab.border)}>
         <span className="text-sm text-neutral-300">
           {tab === "maintenance" ? "Your maintenance calories" : tab === "cutting" ? `500 cal deficit from ${tdee.toLocaleString()}` : `+500 cal from ${tdee.toLocaleString()}`}
@@ -899,7 +1454,6 @@ function MacrosSection({ tdee }: { tdee: number }) {
         <span className={cn("text-xl font-bold", activeTab.color)}>{activeCal.toLocaleString()} cal</span>
       </div>
 
-      {/* Macro splits */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
         {macros.map((m) => (
           <div key={m.label} className="rounded-xl border border-white/10 bg-neutral-900 p-4">
@@ -907,9 +1461,9 @@ function MacrosSection({ tdee }: { tdee: number }) {
             <p className="text-xs text-neutral-600 mb-3">{m.ratio} (P/F/C)</p>
             <div className="space-y-2">
               {[
-                { icon: <TbMeat className="text-sm text-red-400" />,    label: "Protein", g: m.protein, color: "bg-red-500" },
+                { icon: <TbMeat className="text-sm text-red-400" />,      label: "Protein", g: m.protein, color: "bg-red-500"    },
                 { icon: <TbDroplet className="text-sm text-yellow-400" />, label: "Fats",    g: m.fat,     color: "bg-yellow-500" },
-                { icon: <TbSalad className="text-sm text-green-400" />,  label: "Carbs",   g: m.carbs,   color: "bg-green-500" },
+                { icon: <TbSalad className="text-sm text-green-400" />,   label: "Carbs",   g: m.carbs,   color: "bg-green-500"  },
               ].map(n => {
                 const maxG = Math.max(m.protein, m.fat, m.carbs);
                 return (
@@ -939,8 +1493,8 @@ export default function Page() {
   const [healthCheck, setHealthCheck] = useState<HealthCheck>({
     spo2: 0, heartrate: 0, temperature: 0, weight: 0, height: 0,
   });
-  const [age, setAge]       = useState<number>(0);
-  const [gender, setGender] = useState<string>("");
+  const [age, setAge]           = useState<number>(0);
+  const [gender, setGender]     = useState<string>("");
   const [activityKey, setActivityKey] = useState("sedentary");
 
   // Firebase listener
@@ -951,7 +1505,7 @@ export default function Page() {
       if (!data) return;
       setHealthCheck({
         spo2:        Number(data.spo2)        || 0,
-        heartrate:   Number(data.hearate)     || 0,
+        heartrate:   Number(data.heartrate)   || 0,
         temperature: Number(data.temperature) || 0,
         weight:      Number(data.weight)      || 0,
         height:      Number(data.height)      || 0,
@@ -966,15 +1520,18 @@ export default function Page() {
     : 0;
   const bmiInfo = getBMICategory(bmi);
 
-  const bmr  = calcBMR(healthCheck.weight, healthCheck.height, age, gender);
+  const bmr      = calcBMR(healthCheck.weight, healthCheck.height, age, gender);
   const activity = ACTIVITY_LEVELS.find(a => a.key === activityKey)!;
-  const tdee = calcTDEE(bmr, activity.multiplier);
+  const tdee     = calcTDEE(bmr, activity.multiplier);
+
+  // Derive recommended goal for DietSection
+  const recommendedGoal = getRecommendedGoal(bmi, activityKey, gender);
 
   const bmiSegments = [
-    { label: "Underweight", range: "<18.5",   color: "bg-blue-500" },
-    { label: "Normal",      range: "18.5–24.9", color: "bg-green-500" },
-    { label: "Overweight",  range: "25–29.9", color: "bg-yellow-500" },
-    { label: "Obese",       range: "≥30",     color: "bg-red-500" },
+    { label: "Underweight", range: "<18.5",    color: "bg-blue-500"   },
+    { label: "Normal",      range: "18.5–24.9", color: "bg-green-500"  },
+    { label: "Overweight",  range: "25–29.9",  color: "bg-yellow-500" },
+    { label: "Obese",       range: "≥30",      color: "bg-red-500"    },
   ];
 
   const bmiNeedle = bmi === 0 ? null
@@ -992,16 +1549,17 @@ export default function Page() {
   };
 
   const healthCards = [
-    { label: "SpO₂",        value: healthCheck.spo2 > 0        ? healthCheck.spo2.toFixed(0)        : "—", unit: "%",   icon: <FaLungs      className="text-2xl text-cyan-400 icon-breathe"  />, status: getSpo2Status(healthCheck.spo2),          color: "from-cyan-500/20 to-cyan-600/5",    border: "border-cyan-500/30",    accent: "text-cyan-400"    },
-    { label: "Heart Rate",  value: healthCheck.heartrate > 0   ? healthCheck.heartrate.toFixed(0)   : "—", unit: "bpm", icon: <FaHeartbeat  className="text-2xl text-red-400 icon-heartbeat" />, status: getHeartRateStatus(healthCheck.heartrate), color: "from-red-500/20 to-red-600/5",      border: "border-red-500/30",     accent: "text-red-400"     },
-    { label: "Temperature", value: healthCheck.temperature > 0 ? healthCheck.temperature.toFixed(1) : "—", unit: "°C",  icon: <WiThermometer className="text-3xl text-orange-400 icon-thermo"/>, status: getTempStatus(healthCheck.temperature),    color: "from-orange-500/20 to-orange-600/5",border: "border-orange-500/30",  accent: "text-orange-400"  },
-    { label: "Weight",      value: healthCheck.weight > 0      ? healthCheck.weight.toFixed(1)      : "—", unit: "kg",  icon: <FaWeight     className="text-2xl text-violet-400 icon-float"   />, status: healthCheck.weight > 0 ? "Measured" : "—", color: "from-violet-500/20 to-violet-600/5",border: "border-violet-500/30",  accent: "text-violet-400"  },
-    { label: "Height",      value: healthCheck.height > 0      ? healthCheck.height.toFixed(0)      : "—", unit: "cm",  icon: <FaRulerVertical className="text-2xl text-pink-400 icon-ruler" />, status: healthCheck.height > 0 ? "Measured" : "—", color: "from-pink-500/20 to-pink-600/5",   border: "border-pink-500/30",    accent: "text-pink-400"    },
+    { label: "SpO₂",        value: healthCheck.spo2 > 0        ? healthCheck.spo2.toFixed(0)        : "—", unit: "%",   icon: <FaLungs         className="text-2xl text-cyan-400 icon-breathe"   />, status: getSpo2Status(healthCheck.spo2),          color: "from-cyan-500/20 to-cyan-600/5",    border: "border-cyan-500/30",    accent: "text-cyan-400"    },
+    { label: "Heart Rate",  value: healthCheck.heartrate > 0   ? healthCheck.heartrate.toFixed(0)   : "—", unit: "bpm", icon: <FaHeartbeat     className="text-2xl text-red-400 icon-heartbeat"  />, status: getHeartRateStatus(healthCheck.heartrate), color: "from-red-500/20 to-red-600/5",      border: "border-red-500/30",     accent: "text-red-400"     },
+    { label: "Temperature", value: healthCheck.temperature > 0 ? healthCheck.temperature.toFixed(1) : "—", unit: "°C",  icon: <WiThermometer   className="text-3xl text-orange-400 icon-thermo"  />, status: getTempStatus(healthCheck.temperature),    color: "from-orange-500/20 to-orange-600/5", border: "border-orange-500/30",  accent: "text-orange-400"  },
+    { label: "Weight",      value: healthCheck.weight > 0      ? healthCheck.weight.toFixed(1)      : "—", unit: "kg",  icon: <FaWeight        className="text-2xl text-violet-400 icon-float"    />, status: healthCheck.weight > 0 ? "Measured" : "—", color: "from-violet-500/20 to-violet-600/5", border: "border-violet-500/30",  accent: "text-violet-400"  },
+    { label: "Height",      value: healthCheck.height > 0      ? healthCheck.height.toFixed(0)      : "—", unit: "cm",  icon: <FaRulerVertical className="text-2xl text-pink-400 icon-ruler"     />, status: healthCheck.height > 0 ? "Measured" : "—", color: "from-pink-500/20 to-pink-600/5",    border: "border-pink-500/30",    accent: "text-pink-400"    },
   ];
 
   return (
     <div className="relative min-h-screen w-full bg-black overflow-hidden px-4 py-12">
       <style>{iconAnimationStyles}</style>
+
       {/* Grid BG */}
       <div className={cn("absolute inset-0 [background-size:40px_40px]",
         "[background-image:linear-gradient(to_right,#e4e4e7_1px,transparent_1px),linear-gradient(to_bottom,#e4e4e7_1px,transparent_1px)]",
@@ -1072,7 +1630,7 @@ export default function Page() {
                   {age > 0 && <span className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-neutral-500">yrs</span>}
                 </div>
                 {age > 0 && age < 18 && <p className="text-amber-500 text-xs mt-1 flex items-center gap-1"><MdWarning /> Teen — BMI may vary</p>}
-                {age >= 65         && <p className="text-violet-400 text-xs mt-1 flex items-center gap-1"><MdCheckCircle /> Senior — tailored advice</p>}
+                {age >= 65             && <p className="text-violet-400 text-xs mt-1 flex items-center gap-1"><MdCheckCircle /> Senior — tailored advice</p>}
               </div>
             </div>
 
@@ -1122,6 +1680,38 @@ export default function Page() {
           <div className="w-full bg-[#111111] border border-white/10 rounded-3xl p-6 shadow-xl shadow-black/60">
             <SectionHeader icon={<IoNutrition className="text-xl text-sky-400" />} title="Macronutrients" />
             <MacrosSection tdee={tdee} />
+          </div>
+        )}
+
+        {/* ── Diet Recommendations (DIET_DATA matched meals) ── */}
+        {tdee > 0 && (
+          <div className="w-full bg-[#111111] border border-white/10 rounded-3xl p-6 shadow-xl shadow-black/60">
+            <SectionHeader
+              icon={<MdRestaurantMenu className="text-xl text-green-400" />}
+              title="Recommended Meals"
+            />
+            <DietSection
+              goal={recommendedGoal}
+              tdee={tdee}
+              weight={healthCheck.weight}
+              activityKey={activityKey}
+            />
+          </div>
+        )}
+
+        {/* ── Exercise Plan (EXERCISE_DATA matched) ── */}
+        {tdee > 0 && (
+          <div className="w-full bg-[#111111] border border-white/10 rounded-3xl p-6 shadow-xl shadow-black/60">
+            <SectionHeader
+              icon={<MdFitnessCenter className="text-xl text-violet-400" />}
+              title="Recommended Exercise Plan"
+            />
+            <ExerciseSection
+              goal={recommendedGoal}
+              tdee={tdee}
+              activityKey={activityKey}
+              bmi={bmi}
+            />
           </div>
         )}
 
