@@ -4,6 +4,7 @@ import { cn } from "@/lib/utils";
 import { useState, useEffect } from "react";
 import { database } from "../config/firebase";
 import { ref, onValue } from "firebase/database";
+import * as htmlToImage from 'html-to-image';
 
 // React Icons imports
 import { FaLungs, FaHeartbeat, FaWeight } from "react-icons/fa";
@@ -532,6 +533,7 @@ function calcMuscularPotential(height: number) {
     at15: Math.round(height - 97),
   };
 }
+
 
 function calcMacros(calories: number) {
   const splits = [
@@ -1497,6 +1499,39 @@ export default function Page() {
   const [gender, setGender]     = useState<string>("");
   const [activityKey, setActivityKey] = useState("sedentary");
 
+  const [isDownloading, setIsDownloading] = useState(false);
+
+  const downloadReport = async () => {
+    setIsDownloading(true);
+    try {
+      const element = document.getElementById("diet-plan-report");
+      if (!element) return;
+
+      // The new library creates the image data directly!
+      const dataURL = await htmlToImage.toPng(element, {
+        pixelRatio: 2, // High resolution (similar to scale: 2)
+        backgroundColor: '#111111', 
+      });
+
+      const link = document.createElement("a");
+      link.href = dataURL;
+      link.download = `AUTOMA-FIT_Plan_${new Date().toISOString().slice(0,10)}.png`;
+      link.click();
+    } catch (err) {
+      console.error("Failed to download report:", err);
+      
+      // TypeScript-safe error checking
+      if (err instanceof Error) {
+        alert("Error: " + err.message);
+      } else {
+        alert("An unknown error occurred while saving.");
+      }
+      
+    } finally {
+      setIsDownloading(false);
+    }
+  };
+
   // Firebase listener
   useEffect(() => {
     const energyRef   = ref(database, "monitoring");
@@ -1656,6 +1691,18 @@ export default function Page() {
                 ))}
               </div>
             </div>
+
+            {tdee > 0 && (
+              <button
+                onClick={downloadReport}
+                disabled={isDownloading}
+                className="mt-5 mb-2 w-full flex items-center justify-center gap-3 bg-neutral-900 hover:bg-neutral-800 border border-white/10 disabled:opacity-50 text-white font-bold py-3.5 rounded-xl transition-all shadow-md"
+              >
+                <MdCheckCircle className={cn("text-xl text-green-400", isDownloading && "animate-pulse")} />
+                {isDownloading ? "Generating Image File..." : "Save Diet Plan & BMI to Phone"}
+              </button>
+            )}
+
             <BMIRemarks bmi={bmi} age={age} gender={gender} />
           </div>
         </div>
@@ -1683,19 +1730,49 @@ export default function Page() {
           </div>
         )}
 
-        {/* ── Diet Recommendations (DIET_DATA matched meals) ── */}
+       {/* ── Diet Recommendations & Screenshot Target ── */}
         {tdee > 0 && (
           <div className="w-full bg-[#111111] border border-white/10 rounded-3xl p-6 shadow-xl shadow-black/60">
             <SectionHeader
               icon={<MdRestaurantMenu className="text-xl text-green-400" />}
               title="Recommended Meals"
             />
-            <DietSection
-              goal={recommendedGoal}
-              tdee={tdee}
-              weight={healthCheck.weight}
-              activityKey={activityKey}
-            />
+            
+            {/* EVERYTHING INSIDE THIS DIV WILL BE SAVED AS THE IMAGE */}
+            <div id="diet-plan-report" className="bg-[#111111] rounded-2xl pb-2">
+              
+              {/* Official Report Header (Only visible when downloading or viewing diet plan) */}
+              <div className="flex justify-between items-end border-b border-white/10 pb-4 mb-4 mt-2">
+                <div>
+                  <h2 className="text-white font-bold text-lg tracking-wide">AUTOMA-FIT Diet Plan</h2>
+                  <p className="text-xs text-neutral-500">Date: {new Date().toLocaleDateString()}</p>
+                </div>
+                <div className="text-right">
+                  <p className="text-xs text-neutral-500 uppercase tracking-widest mb-1">Your BMI</p>
+                  <p className={cn("text-xl font-bold leading-none", bmiInfo.accent)}>
+                    {bmi > 0 ? bmi : "—"} <span className="text-sm font-normal">({bmiInfo.label})</span>
+                  </p>
+                </div>
+              </div>
+
+              <DietSection
+                goal={recommendedGoal}
+                tdee={tdee}
+                weight={healthCheck.weight}
+                activityKey={activityKey}
+              />
+            </div>
+            {/* END OF SCREENSHOT TARGET */}
+
+            {/* The Download Button */}
+            <button
+              onClick={downloadReport}
+              disabled={isDownloading}
+              className="mt-6 w-full flex items-center justify-center gap-3 bg-green-600 hover:bg-green-500 disabled:bg-green-800 text-white font-bold py-4 rounded-xl transition-all shadow-lg shadow-green-900/20"
+            >
+              <MdCheckCircle className={cn("text-2xl", isDownloading && "animate-pulse")} />
+              {isDownloading ? "Generating Image File..." : "Save Diet Plan & BMI to Phone"}
+            </button>
           </div>
         )}
 
